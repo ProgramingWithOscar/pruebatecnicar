@@ -47,7 +47,7 @@ public class ClienteController {
         Cliente clienteFromDb = clienteRepository.findById(id).orElse(null);
 
         clienteFromDb.setNombre(cliente.getNombre());
-        clienteFromDb.setApellido(cliente.getApellido());
+        clienteFromDb.setApellidos(cliente.getApellidos());
         clienteFromDb.setEmail(cliente.getEmail());
         return clienteRepository.save(cliente);
     }

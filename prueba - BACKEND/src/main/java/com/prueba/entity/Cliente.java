@@ -23,7 +23,7 @@ public class Cliente {
     private String nombre;
 
     @NonNull
-    private String apellido;
+    private String apellidos;
 
     @NonNull
     private String email;
@@ -35,9 +35,9 @@ public class Cliente {
     private String categoria;
 
    
-    public Cliente(String nombre, String apellido, String email) {
+    public Cliente(String nombre, String apellidos, String email) {
         this.nombre = nombre;
-        this.apellido = apellido;
+        this.apellidos = apellidos;
         this.email = email;
     }
 }
