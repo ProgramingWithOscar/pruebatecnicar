@@ -1,0 +1,48 @@
+<div>
+  <a href="/" class="btn btn-primary">Volver</a>
+  <h1 class="mb-5">Lista de Clientes</h1>
+</div>
+<div class="text-end">
+  <button class="btn btn-primary me-2" routerLink="/new">
+    Nuevo Cliente
+  </button>
+  <div class="btn-group">
+    <button class="btn btn-success" (click)="exportToExcel()">Exportar a Excel</button>
+    <button class="btn btn-danger" (click)="exportToPDF()">Exportar a PDF</button>
+  </div>
+
+</div>
+
+<table class="table table-hover" id="clientesTable">
+  <thead>
+    <tr>
+      <th>Codigo</th>
+      <th>Nombre</th>
+      <th>Apellidos</th>
+      <th>Email</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(cliente of clientesPaginated(); track cliente.id_cliente) {
+      <tr>
+        <td>{{ cliente.id_cliente }}</td>
+        <td>{{ cliente.nombre }}</td>
+        <td>{{ cliente.apellidos }}</td>
+        <td>{{cliente.email}}</td>
+        <td class="text-end">
+          <div class="btn-group">
+            <button class="btn btn-primary" [routerLink]="[cliente.id_cliente, 'edit']">Editar</button>
+            <button class="btn btn-danger" (click)="deleteCliente(cliente)">Eliminar</button>
+          </div>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+<div class="d-flex justify-content-center mt-4">
+  <button class="btn btn-secondary me-2" (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+  <span>Página {{ currentPage }} de {{ totalPages }}</span>
+  <button class="btn btn-secondary ms-2" (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
+</div>

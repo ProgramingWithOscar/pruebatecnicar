@@ -1,0 +1,43 @@
+<h2 class="mb-5">
+  @if(producto){
+    Editar
+  }@else {
+    Nuevo
+  } Producto
+</h2>
+
+@if(form){
+  <form [formGroup]="form" (ngSubmit)="guardar()">
+    <div class="mb-3">
+
+      <label for="name">Nombre</label>
+      <input type="text" name="nombre" id="name" placeholder="nombre" class="form-control" formControlName="nombre" required="true">
+
+    </div>
+    <div class="mb-3">
+
+      <label for="precio">Precio</label>
+      <input type="text" name="precio" id="precios" placeholder="precios" class="form-control" formControlName="precio">
+
+    </div>
+    <div class="mb-3">
+
+      <label for="stock">stock</label>
+      <input type="stock" name="stock" id="stock" placeholder="stock" class="form-control" formControlName="stock" >
+    </div>
+
+    <div>
+      <button class="btn btn-primary">
+        @if(producto){
+          Editar
+        }@else {
+          Nuevo
+        } Producto
+      </button>
+
+    </div>
+  </form>
+}
+<a class="button" class="btn btn-light" href="products">
+  Cancelar
+</a>

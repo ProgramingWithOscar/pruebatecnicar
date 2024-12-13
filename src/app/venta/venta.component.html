@@ -1,0 +1,98 @@
+<a class="button" class="btn btn-light" href="/">
+  Volver
+</a>
+<div class="container mt-4">
+  <h2>Generar Venta</h2>
+  <form (ngSubmit)="agregarVenta()">
+    <div class="mb-3">
+      <label for="clienteSelect" class="form-label">Cliente:</label>
+      <select id="clienteSelect" [(ngModel)]="clienteSeleccionado" name="cliente" class="form-select">
+        <option *ngFor="let cliente of clientes" [ngValue]="cliente">{{ cliente.nombre }}</option>
+
+      </select>
+      <p><strong>Cliente:</strong> {{ clienteSeleccionado?.id_cliente}}</p>
+
+    </div>
+
+
+    <div class="mb-3">
+      <label for="cantidad" class="form-label">Cantidad:</label>
+      <input id="cantidad" type="number" [(ngModel)]="cantidad" name="cantidad" class="form-control" min="1" required />
+    </div>
+
+    <div class="mb-3">
+      <label for="productos" class="form-label">Productos:</label>
+      <select id="productos" [(ngModel)]="productoSeleccionado" name="producto" class="form-select">
+        <option *ngFor="let producto of productos" [ngValue]="producto">{{ producto.nombre }}</option>
+      </select>
+    </div>
+    <p><strong>Cliente:</strong> {{ productoSeleccionado?.idProducto}}</p>
+
+    <button type="button" (click)="agregarProducto()" class="btn btn-primary m-2">Agregar Producto</button>
+
+    <button type="submit" class="btn btn-success">Generar Venta</button>
+  </form>
+
+  <h3 class="mt-4">Productos seleccionados</h3>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Precio</th>
+        <th>Total</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of productosSeleccionados; let i = index">
+        <td>{{ item.producto.nombre }}</td>
+        <td>{{ item.cantidad }}</td>
+        <td>{{ item.producto.precio | currency }}</td>
+        <td>{{ item.cantidad * item.producto.precio | currency }}</td>
+        <td>
+          <button (click)="eliminarProducto(i)" class="btn btn-danger btn-sm">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="ventaGenerada" class="mt-4">
+   <div class="container border p-4">
+    <h3>Factura</h3>
+    <div id="factura">
+      <div  class="d-flex justify-content-center align-items-center">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIvM_AM9xo5tWtT6L1RHsc8PpRG1ymvPBU1w&s" alt="logo" class="img-fluid">
+        <p>NIT: <strong>9800000001</strong></p>
+      </div>
+
+      <p><strong>Nombre: </strong> {{ clienteSeleccionado?.nombre }}</p>
+      <p><strong>Apellidos: </strong>{{clienteSeleccionado?.apellidos}}</p>
+      <p><strong>Fecha:</strong> {{ fecha | date:'short' }}</p>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of productosSeleccionados">
+            <td>{{ item.producto.nombre }}</td>
+            <td>{{ item.cantidad }}</td>
+            <td>{{ item.producto.precio | currency }}</td>
+            <td>{{ item.cantidad * item.producto.precio | currency }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>Total: {{ totalVenta | currency }}</h4>
+    </div>
+    <div>
+      <p class="text-center"><strong>Red Dan Technology</strong></p>
+    </div>
+    <button (click)="imprimirFactura()" class="btn btn-secondary">Imprimir Factura</button>
+  </div>
+   </div>
+</div>

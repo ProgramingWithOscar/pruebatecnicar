@@ -1,0 +1,49 @@
+<div>
+  <a href="/" class="btn btn-primary">Volver</a>
+  <h1 class="mb-5">Lista de productos</h1>
+</div>
+
+<div class="text-end">
+  <button class="btn btn-primary me-2" routerLink="/newProduct">
+    Nuevo producto
+  </button>
+  <div class="btn-group">
+    <button class="btn btn-success" (click)="exportToExcel()">Exportar a Excel</button>
+    <button class="btn btn-danger" (click)="exportToPDF()">Exportar a PDF</button>
+  </div>
+
+</div>
+
+<table class="table table-hover" id="productosTable">
+  <thead>
+    <tr>
+      <th>Codigo</th>
+      <th>Nombre</th>
+      <th>Precio</th>
+      <th>Stock</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(producto of productoPaginated(); track producto.idProducto) {
+      <tr>
+        <td>{{ producto.idProducto }}</td>
+        <td>{{ producto.nombre }}</td>
+        <td>{{ producto.precio }}</td>
+        <td>{{ producto.stock }}</td>
+        <td class="text-end">
+          <div class="btn-group">
+            <button class="btn btn-primary" [routerLink]="[producto.idProducto, 'edit']">Editar</button>
+            <button class="btn btn-danger" (click)="deleteProducto(producto)">Eliminar</button>
+          </div>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+<div class="d-flex justify-content-center mt-4">
+  <button class="btn btn-secondary me-2" (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+  <span>Página {{ currentPage }} de {{ totalPages }}</span>
+  <button class="btn btn-secondary ms-2" (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
+</div>

@@ -1,0 +1,48 @@
+<h2 class="mb-5">
+  {{ cliente ? 'Editar' : 'Nuevo' }} Cliente
+</h2>
+
+<form *ngIf="form" [formGroup]="form" (ngSubmit)="save()">
+  <div class="mb-3">
+    <label for="name">Nombre</label>
+    <input
+      type="text"
+      name="nombre"
+      id="name"
+      placeholder="nombre"
+      class="form-control"
+      formControlName="nombre"
+      required>
+  </div>
+
+  <div class="mb-3">
+    <label for="apellidos">Apellidos</label>
+    <input
+      type="text"
+      name="apellidos"
+      id="apellidos"
+      placeholder="apellidos"
+      class="form-control"
+      formControlName="apellidos"
+      required>
+  </div>
+
+  <div class="mb-3">
+    <label for="email">Email</label>
+    <input
+      type="email"
+      name="email"
+      id="email"
+      placeholder="email"
+      class="form-control"
+      formControlName="email">
+  </div>
+
+  <div>
+    <button type="submit" class="btn btn-primary">
+      {{ cliente ? 'Actualizar' : 'Guardar' }}
+    </button>
+  </div>
+</form>
+
+<a class="btn btn-light" [routerLink]="['/list']">Cancelar</a>
